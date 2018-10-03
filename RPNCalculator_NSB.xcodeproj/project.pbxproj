@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		3B77BF9021640A49005EA3D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B77BF8F21640A49005EA3D3 /* AppDelegate.swift */; };
-		3B77BF9221640A49005EA3D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B77BF9121640A49005EA3D3 /* ViewController.swift */; };
-		3B77BF9521640A49005EA3D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B77BF9321640A49005EA3D3 /* Main.storyboard */; };
 		3B77BF9721640A4A005EA3D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B77BF9621640A4A005EA3D3 /* Assets.xcassets */; };
 		3B77BF9A21640A4A005EA3D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B77BF9821640A4A005EA3D3 /* LaunchScreen.storyboard */; };
+		3B77BFA221640EC9005EA3D3 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B77BFA121640EC9005EA3D3 /* CalculatorViewController.swift */; };
+		3B77BFA721641202005EA3D3 /* UIView Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B77BFA621641202005EA3D3 /* UIView Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B77BF8C21640A49005EA3D3 /* RPNCalculator_NSB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RPNCalculator_NSB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B77BF8F21640A49005EA3D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3B77BF9121640A49005EA3D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3B77BF9421640A49005EA3D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3B77BF9621640A4A005EA3D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B77BF9921640A4A005EA3D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B77BF9B21640A4A005EA3D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B77BFA121640EC9005EA3D3 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
+		3B77BFA621641202005EA3D3 /* UIView Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +54,38 @@
 		3B77BF8E21640A49005EA3D3 /* RPNCalculator_NSB */ = {
 			isa = PBXGroup;
 			children = (
+				3B77BFA5216411EA005EA3D3 /* Extensions */,
+				3B77BFA4216411DD005EA3D3 /* ViewControllers */,
+				3B77BFA3216411CC005EA3D3 /* Resources */,
+			);
+			path = RPNCalculator_NSB;
+			sourceTree = "<group>";
+		};
+		3B77BFA3216411CC005EA3D3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				3B77BF8F21640A49005EA3D3 /* AppDelegate.swift */,
-				3B77BF9121640A49005EA3D3 /* ViewController.swift */,
-				3B77BF9321640A49005EA3D3 /* Main.storyboard */,
 				3B77BF9621640A4A005EA3D3 /* Assets.xcassets */,
 				3B77BF9821640A4A005EA3D3 /* LaunchScreen.storyboard */,
 				3B77BF9B21640A4A005EA3D3 /* Info.plist */,
 			);
-			path = RPNCalculator_NSB;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3B77BFA4216411DD005EA3D3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3B77BFA121640EC9005EA3D3 /* CalculatorViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3B77BFA5216411EA005EA3D3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3B77BFA621641202005EA3D3 /* UIView Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +148,6 @@
 			files = (
 				3B77BF9A21640A4A005EA3D3 /* LaunchScreen.storyboard in Resources */,
 				3B77BF9721640A4A005EA3D3 /* Assets.xcassets in Resources */,
-				3B77BF9521640A49005EA3D3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +158,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B77BF9221640A49005EA3D3 /* ViewController.swift in Sources */,
+				3B77BFA721641202005EA3D3 /* UIView Extension.swift in Sources */,
+				3B77BFA221640EC9005EA3D3 /* CalculatorViewController.swift in Sources */,
 				3B77BF9021640A49005EA3D3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,14 +167,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3B77BF9321640A49005EA3D3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3B77BF9421640A49005EA3D3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3B77BF9821640A4A005EA3D3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -284,7 +300,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5EAUJPVR66;
-				INFOPLIST_FILE = RPNCalculator_NSB/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RPNCalculator_NSB/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +318,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5EAUJPVR66;
-				INFOPLIST_FILE = RPNCalculator_NSB/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RPNCalculator_NSB/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
