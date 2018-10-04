@@ -18,7 +18,6 @@ class CalculatorViewController: UIViewController {
     let equalSignButtonColor : UIColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
     let operandsButtonColor : UIColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
     let fontsize = UIFont.boldSystemFont(ofSize: 20)
-    
     let bottomPadding: CGFloat = 4
     let sidePadding: CGFloat = 8
     let topPaddind: CGFloat = 8
@@ -28,19 +27,20 @@ class CalculatorViewController: UIViewController {
     var secondNumber: String = ""
     var operationSybmol : String = ""
     var wasEqualSignPressed: Bool = false
+    var wasoperationButtonPressed : Bool = false
+    var wasAnotherOperationUsed : Bool = false
     var topLabelString = "" {
         didSet{
             updateTopLabel()
         }
     }
-    var wasoperationButtonPressed : Bool = false
-
+    
     var displayLabelString : String = "" {
         didSet {
             updateDisplayLabel()
         }
     }
-
+    
     
     //MARK: - Properties - Labels
     let topLabel : UILabel = {
@@ -73,24 +73,24 @@ class CalculatorViewController: UIViewController {
     lazy var number1Button : UIButton = {
         let button = UIButton(type: .system)
         buttonSetup(button: button, symbol: "1", color: numberButtonColor)
-          return button
+        return button
     }()
     
     lazy var number2Button : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "2", color: numberButtonColor)
+        buttonSetup(button: button, symbol: "2", color: numberButtonColor)
         return button
     }()
     
     lazy var number3Button : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "3", color: numberButtonColor)
+        buttonSetup(button: button, symbol: "3", color: numberButtonColor)
         return button
     }()
     
     lazy var number4Button : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "4", color: numberButtonColor)
+        buttonSetup(button: button, symbol: "4", color: numberButtonColor)
         return button
     }()
     
@@ -102,7 +102,7 @@ class CalculatorViewController: UIViewController {
     
     lazy var number6Button : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "6", color: numberButtonColor)
+        buttonSetup(button: button, symbol: "6", color: numberButtonColor)
         return button
     }()
     
@@ -114,13 +114,13 @@ class CalculatorViewController: UIViewController {
     
     lazy var number8Button : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "8", color: numberButtonColor)
+        buttonSetup(button: button, symbol: "8", color: numberButtonColor)
         return button
     }()
     
     lazy var number9Button : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "9", color: numberButtonColor)
+        buttonSetup(button: button, symbol: "9", color: numberButtonColor)
         return button
     }()
     
@@ -132,7 +132,7 @@ class CalculatorViewController: UIViewController {
     
     lazy var additionButton : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "+", color: operandsButtonColor)
+        buttonSetup(button: button, symbol: "+", color: operandsButtonColor)
         return button
     }()
     
@@ -141,7 +141,6 @@ class CalculatorViewController: UIViewController {
         buttonSetup(button: button, symbol: "-", color: operandsButtonColor)
         return button
     }()
-    
     
     lazy var multiplicationButton : UIButton = {
         let button = UIButton(type: .system)
@@ -163,17 +162,17 @@ class CalculatorViewController: UIViewController {
     
     lazy var dotButton : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: ".", color: numberButtonColor)
+        buttonSetup(button: button, symbol: ".", color: numberButtonColor)
         return button
     }()
     
     lazy var equalSignButton : UIButton = {
         let button = UIButton(type: .system)
-       buttonSetup(button: button, symbol: "=", color: equalSignButtonColor)
+        buttonSetup(button: button, symbol: "=", color: equalSignButtonColor)
         return button
     }()
     
-    
+    //MARK: - Status Bar setting
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
@@ -186,7 +185,6 @@ class CalculatorViewController: UIViewController {
         setupMainLabel()
         setupButtons()
         setupActionButtons()
-        
     }
     
     
@@ -202,6 +200,7 @@ class CalculatorViewController: UIViewController {
         displayLabel.anchor(top: nil, left: self.view.leftAnchor, bottom: topLabel.bottomAnchor, right: self.view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: self.view.frame.width, height: 50)
         
     }
+    
     func setupButtons() {
         self.view.addSubview(clearButton)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
@@ -257,6 +256,7 @@ class CalculatorViewController: UIViewController {
         equalSignButton.addTarget(self, action: #selector(equalSignButton(_:)), for: .touchUpInside)
     }
     
+    
     //MARK: - Button Setup
     func buttonSetup(button: UIButton, symbol: String, color: UIColor){
         
@@ -267,15 +267,15 @@ class CalculatorViewController: UIViewController {
         let atributedText = NSMutableAttributedString(string: symbol, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30), NSAttributedString.Key.foregroundColor: UIColor.white])
         button.setAttributedTitle(atributedText, for: .normal)
     }
-
     
     
-    //MARK: - HelperMethods
+    
+    //MARK: - Update Methods
     func updateDisplayLabel() {
         if wasoperationButtonPressed {
             displayLabel.text = firstNumber
         } else {
-        displayLabel.text = displayLabelString
+            displayLabel.text = displayLabelString
         }
     }
     
@@ -284,30 +284,11 @@ class CalculatorViewController: UIViewController {
     }
     
     
+    //MARK: - Button Methods
     @objc func button(button: UIButton){
         if !displayLabelString.contains(".") && displayLabelString.first == "0" {
             displayLabelString.removeFirst()
-            
         }
-        wasoperationButtonPressed = false
-        if wasEqualSignPressed {
-            reset()
-        }
-        if displayLabelString.count < 8 {
-        guard let text = button.titleLabel?.text else {return}
-       self.displayLabelString += text
-            
-            self.topLabelString += text
-        }
-    }
-    
-    
-    @objc func zeroButton(button: UIButton){
-        if !displayLabelString.contains(".") && displayLabelString.first == "0" {
-           displayLabelString.removeFirst()
-            
-        } else {
-            
         wasoperationButtonPressed = false
         if wasEqualSignPressed {
             reset()
@@ -315,7 +296,24 @@ class CalculatorViewController: UIViewController {
         if displayLabelString.count < 8 {
             guard let text = button.titleLabel?.text else {return}
             self.displayLabelString += text
+            self.topLabelString += text
         }
+    }
+    
+    
+    @objc func zeroButton(button: UIButton){
+        if !displayLabelString.contains(".") && displayLabelString.first == "0" {
+            displayLabelString.removeFirst()
+            
+        } else {
+            wasoperationButtonPressed = false
+            if wasEqualSignPressed {
+                reset()
+            }
+            if displayLabelString.count < 8 {
+                guard let text = button.titleLabel?.text else {return}
+                self.displayLabelString += text
+            }
         }
     }
     
@@ -324,40 +322,17 @@ class CalculatorViewController: UIViewController {
             reset()
         }
         if displayLabelString.count < 8 {
-        if count == 0 {
-            count += 1
-            print(count)
-            guard let text = button.titleLabel?.text else {return}
-            if self.displayLabelString == "" {
-                self.displayLabelString = self.displayLabelString + "0" + text
-            } else {
-                self.displayLabelString = self.displayLabelString + text
+            if count == 0 {
+                count += 1
+                print(count)
+                guard let text = button.titleLabel?.text else {return}
+                if self.displayLabelString == "" {
+                    self.displayLabelString = self.displayLabelString + "0" + text
+                } else {
+                    self.displayLabelString = self.displayLabelString + text
+                }
             }
         }
-        }
-        
-    }
-    
-    @objc func operation(_ operation: UIButton){
-        
-        self.firstNumber = displayLabelString
-        
-        if operation.titleLabel?.text == "+" {
-            operationSybmol = "+"
-        }
-        if operation.titleLabel?.text == "-" {
-            operationSybmol = "-"
-        }
-        if operation.titleLabel?.text == "×"{
-            operationSybmol = "×"
-        }
-        if operation.titleLabel?.text == "÷"{
-            operationSybmol = "÷"
-        }
-        displayLabel.text = firstNumber
-        topLabelString += operationSybmol
-        wasoperationButtonPressed = true
-        differendReset()
     }
     
     @objc func clearButton(_ : UIButton){
@@ -369,23 +344,29 @@ class CalculatorViewController: UIViewController {
         }
     }
     
-    func differendReset(){
-        displayLabelString = ""
-        count = 0
-       // characterCountInsDisplayString = 0
-      
-    }
     
-    func reset(){
-        displayLabelString = ""
-        displayLabel.text = "0"
-        count = 0
-        firstNumber = ""
-        secondNumber = ""
-        wasEqualSignPressed = false
-        operationSybmol = ""
-        wasoperationButtonPressed = false
-        topLabelString = ""
+    //MARK: - Math Operation Methods
+    @objc func operation(_ operation: UIButton){
+        if !wasAnotherOperationUsed {
+            self.firstNumber = displayLabelString
+            
+            if operation.titleLabel?.text == "+" {
+                operationSybmol = "+"
+            }
+            if operation.titleLabel?.text == "-" {
+                operationSybmol = "-"
+            }
+            if operation.titleLabel?.text == "×"{
+                operationSybmol = "×"
+            }
+            if operation.titleLabel?.text == "÷"{
+                operationSybmol = "÷"
+            }
+            displayLabel.text = firstNumber
+            topLabelString += operationSybmol
+            wasAnotherOperationUsed = true
+            differendReset()
+        }
     }
     
     @objc func equalSignButton(_ : UIButton){
@@ -416,6 +397,26 @@ class CalculatorViewController: UIViewController {
         }
         wasEqualSignPressed = true
         wasoperationButtonPressed = false
+    }
+    
+    
+    //MARK: - Reset Methods
+    func differendReset(){
+        displayLabelString = ""
+        count = 0
+    }
+    
+    func reset(){
+        displayLabelString = ""
+        displayLabel.text = "0"
+        count = 0
+        firstNumber = ""
+        secondNumber = ""
+        wasEqualSignPressed = false
+        operationSybmol = ""
+        wasoperationButtonPressed = false
+        wasAnotherOperationUsed = false
+        topLabelString = ""
     }
 }
 

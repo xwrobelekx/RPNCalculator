@@ -40,11 +40,4 @@ class CalculatorController {
          return operation(firstNumber, secondNumber)
     }
     
-    
-    
-    
-    
-    
-    
-    
 }
